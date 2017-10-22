@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.iba.personaldata.entity.Role" table="role">
+        <id name="id" type="java.lang.Long">
+            <column name="ROLE_ID" />
+            <generator class="sequence-identity" />
+        </id>
+        <set name="personRoleSet" table="person_role"
+             cascade="all-delete-orphan" inverse="true" fetch="select" lazy="true">
+            <key>
+                <column name="ROLE_ID" not-null="true" />
+            </key>
+            <one-to-many class="com.iba.personaldata.entity.Role" />
+        </set>
+        <property name="role" column="ROLE" not-null="true">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">com.iba.personaldata.util.RoleType</param>
+                <param name="useNamed">true</param>
+            </type>
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,12 @@
+#Eclipse
+**/bin/
+.settings
+.classpath
+.project
+
+#IDEA
+/.idea
+*.iml
+**/out
+**/build
+**/target

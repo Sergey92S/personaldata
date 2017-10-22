@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.iba.personaldata.entity.Person" table="person">
+        <id name="id" type="java.lang.Long">
+            <column name="PERSON_ID" />
+            <generator class="sequence-identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="NAME" length="30" not-null="true"/>
+        </property>
+        <property name="surname" type="string">
+            <column name="SURNAME" length="30" not-null="true"/>
+        </property>
+        <property name="login" type="string">
+            <column name="LOGIN" length="30" not-null="true" unique="true" />
+        </property>
+        <property name="password" type="string">
+            <column name="PASSWORD" length="100" not-null="true"/>
+        </property>
+        <property name="active" type="int">
+            <column name="ACTIVE" not-null="true"/>
+        </property>
+        <set name="personRoleSet" table="person_role"
+             cascade="all-delete-orphan" inverse="true" fetch="select" lazy="true">
+            <key>
+                <column name="PERSON_ID" not-null="true" />
+            </key>
+            <one-to-many class="com.iba.personaldata.entity.Person" />
+        </set>
+        <property name="experience" type="java.util.Date">
+            <column name="EXPERIENCE" not-null="true"/>
+        </property>
+        <property name="position" column="POSITION" not-null="true">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">com.iba.personaldata.util.Position</param>
+                <param name="useNamed">true</param>
+            </type>
+        </property>
+    </class>
+</hibernate-mapping>
